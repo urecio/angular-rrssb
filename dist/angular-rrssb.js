@@ -1,7 +1,7 @@
 /*!
  * angular-rrssb
  * https://github.com/mvsouza/angular-rrssb
- * Version: 0.0.8 - 2015-01-13T15:30:23.402Z
+ * Version: 0.0.8 - 2015-01-13T15:42:30.246Z
  * License: MIT
  */
 
