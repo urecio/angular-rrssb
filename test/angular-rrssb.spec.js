@@ -41,11 +41,22 @@ describe('angular-rrssb', function () {
     describe('when created', function () {
       it('contain just facebook link', function () {
         element = createDirective(template);
-
         expect(element.html()).toContain('https://www.facebook.com/');
         expect(element.html()).not.toContain('https://www.linkedin.com/');
         expect(element.html()).not.toContain('https://twitter.com/');
         expect(element.html()).not.toContain('https://www.tumbler.com/');
+        expect(element.html()).not.toContain('mailto');
+      });
+    });
+  }
+  ietherWays(runTestsWithCustomUrls,"ng-custom-urls=\"{'googleplus':'http://plus.google.com','facebook':'http://facebook.com'}\" ng-share-midias=\"['facebook','googleplus','tumblr']\"")
+  function runTestsWithCustomUrls(template) {
+    describe('when created with custom urls', function () {
+      it('should replace the default for the custom urls', function () {
+        element = createDirective(template);
+        expect(element.find('.rrssb-facebook').html()).toContain('http://facebook.com');
+        expect(element.find('.rrssb-googleplus').html()).toContain('http://plus.google.com');
+        expect(element.find('.rrssb-tumblr').html()).toContain('http://tumblr.com/share?');
         expect(element.html()).not.toContain('mailto');
       });
     });
