@@ -1,16 +1,28 @@
 'use strict';
 
 angular.module('mvsouza.angular-rrssb', []).directive('rrssb', function () {
-  var mediasAvailable = ['facebook','pinterest','pocket','github','googleplus','reddit','twitter','linkedin','email'];
   return {
     restrict: 'AE',
     templateUrl: 'angular-rrssb.html',
     replace: true,
     link: function ($scope, element, attr) {
-      $scope.$watch('$viewContentLoaded', rrssbInit);
+      var customUrls = $scope.$eval(attr.ngCustomUrls);
+      $scope.mediasAvailable = {
+        'facebook': (customUrls.facebook || 'https://www.facebook.com/sharer/sharer.php?u={{urlToShare}}'),
+        'pinterest': (customUrls.pinterest || 'http://pinterest.com/pin/create/button/?url={{urlToShare}}&amp;media={{pinterestImg}}&amp;description={{encode(title)}}.'),
+        'pocket': (customUrls.pocket || 'https://getpocket.com/save?url={{urlToShare}}'),
+        'github': (customUrls.github || '{{githubProject}}'),
+        'youtube': (customUrls.youtube || '#'),
+        'googleplus': (customUrls.googleplus || 'https://plus.google.com/share?url={{encode(title)}}%20{{urlToShare}}'),
+        'reddit': (customUrls.reddit || 'http://www.reddit.com/submit?url={{urlToShare}}'),
+        'twitter': (customUrls.twitter || 'http://twitter.com/home?status={{encode(title)}}%20%0A{{urlToShare}}'),
+        'linkedin': (customUrls.linkedin || 'http://www.linkedin.com/shareArticle?mini=true&amp;url={{urlToShare}}&amp;title={{encode(title)}}&amp;summary={{encode(title)}}'),
+        'tumblr': (customUrls.tumblr || 'http://tumblr.com/share?s=&amp;v=3&t={{encode(title)}}&amp;u={{encode(urlToShare)}}'),
+        'email': (customUrls.email || 'mailto:?subject={{encode(title)}}&amp;body={{encode(urlToShare)}}')
+      };
       $scope.urlToShare = attr.ngShareLink;
       $scope.shareMidias = attr.ngShareMidias;
-      $scope.showAll = false || attr.ngShareAll; 
+      $scope.showAll = false || attr.ngShareAll;
       $scope.shoulShow = function (socialNetworkName) {
         return ($scope.shareMidias && $scope.shareMidias.indexOf(socialNetworkName)>-1) || $scope.showAll;
       };
@@ -20,6 +32,7 @@ angular.module('mvsouza.angular-rrssb', []).directive('rrssb', function () {
       $scope.encode = function (text) {
         return encodeURIComponent(text);
       };
+      $scope.$watch('$viewContentLoaded', rrssbInit);
     }
   };
 });
