@@ -2,6 +2,7 @@
 
 angular.module('mvsouza.angular-rrssb', []).directive('rrssb', function () {
   return {
+    scope: {},
     restrict: 'AE',
     templateUrl: 'angular-rrssb.html',
     replace: true,

@@ -1,7 +1,7 @@
 /*!
  * angular-rrssb
  * https://github.com/mvsouza/angular-rrssb
- * Version: 0.0.8 - 2015-01-14T10:05:17.323Z
+ * Version: 0.0.8 - 2015-01-15T15:23:56.685Z
  * License: MIT
  */
 
@@ -10,6 +10,7 @@
 
 angular.module('mvsouza.angular-rrssb', []).directive('rrssb', function () {
   return {
+    scope: {},
     restrict: 'AE',
     templateUrl: 'angular-rrssb.html',
     replace: true,
